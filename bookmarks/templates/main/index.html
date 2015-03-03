@@ -33,6 +33,7 @@
                             <h4><a href="{{ link.url }}">{{ link.title }}</a></h4>
                             <p class="tags">
                                 {% for tag in link.tags.all %}
+
                                     <a href="/bookmarks/tags/{{ tag.name }}/">{{ tag.name }}</a>
                                 {% endfor %}
                             </p>
@@ -46,6 +47,7 @@
         <div class="popBackground">&nbsp;</div>
         <div class="popWindow">
             <form id="addForm" method="POST" action="/bookmarks/add_link/">
+                {% csrf_token %}
                 <div class="winHead">
                     <h2>Add a link</h2>
                 </div>

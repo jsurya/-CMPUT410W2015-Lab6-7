@@ -34,16 +34,23 @@ def tag(request, tag_name):
 def add_link(request):
 	context = RequestContext(request)
 	if request.method == 'POST':
-		url = url.request.POST.get("url", "")
-		tags = tags.request.POST.get("tags", "")
-		title = title.request.POST.get("title", "")
+		url = request.POST.get("url", "")
+		tags = request.POST.get("tags", "")
+		title = request.POST.get("title", "")
 		tags = tags.split(',')
-		
+
+		l = Link()
+		l.url = url
+		l.title = title
+		l.save()
+
 		existing_tags = Tag.objects.all()
 		for tag in tags:
-			new_tag = Tag.objects.create(name = "tag")
-			if new_tag not in existing_tags:
-				Tag.name.add(new_tag)
-		l = Link(title= title, url =  url, tags = tags)
+			tag = tag.strip()
+			try:
+				link.tags.add(Tag.objects.create(name = "tag"))
+			except:
+				pass
+		
 		l.save()
 	return redirect(index)
